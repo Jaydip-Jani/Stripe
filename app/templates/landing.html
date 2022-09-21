@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Buy cool new product</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+  </head>
+  <body>
+    <section>
+      <div class="product">
+        {% comment %} <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" /> {% endcomment %}
+        <div class="description">
+
+          <h3>{{product.name}}</h3>
+          <h5>$ {{product.get_display_price}} </h5>
+        </div>
+      </div>
+      <form action="{% url 'checkout-session' product.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" id="checkout-button">Checkout</button>
+      </form>
+
+      <hr>
+      
+      <h2>Checkout using custom payment flow</h2>
+
+      <form id="payment-form">
+        <div id="payment-element">
+        </div>
+        
+        <button id="submit">
+          <div class="spinner hidden" id="spinner"></div>
+          <span id="button-text">Pay now</span>
+        </button>
+        <div id="payment-message" class="hidden"></div>
+        
+      </form>
+  
+      
+    </section>
+  </body>
+</html>
